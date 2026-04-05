@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reset Password | Vault Pro</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="auth-screen">
+    <div class="auth-card">
+        <div class="brand-icon">🛡️</div>
+        <h2 style="font-weight:900;">Reset Vault</h2>
+        <p style="color:#64748b; margin-bottom: 30px;">Enter your registered email to update password</p>
+        
+        <form onsubmit="handleReset(event)">
+            <div class="auth-group">
+                <label>EMAIL ADDRESS</label>
+                <input type="email" id="resetEmail" class="auth-input" placeholder="mail@example.com" required>
+            </div>
+            <div class="auth-group">
+                <label>NEW PASSWORD</label>
+                <div class="pass-wrapper">
+                    <input type="password" id="newPass" class="auth-input" placeholder="••••••••" required>
+                    <button type="button" class="toggle-btn" onclick="togglePass('newPass', this)">👁️</button>
+                </div>
+            </div>
+            <button type="submit" class="btn-primary">Update Password</button>
+        </form>
+        <p style="margin-top:20px;"><a href="login.html" style="color:var(--primary); font-weight:800; text-decoration: none;">Back to Login</a></p>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        function handleReset(e) {
+            e.preventDefault();
+            const email = document.getElementById('resetEmail').value;
+            const newPass = document.getElementById('newPass').value;
+            const profile = JSON.parse(localStorage.getItem('profile_' + email));
+            if (profile) {
+                profile.pass = newPass;
+                localStorage.setItem('profile_' + email, JSON.stringify(profile));
+                alert("Password updated successfully!");
+                location.href = 'login.html';
+            } else { alert("Account not found!"); }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vault Pro Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div style="width: 40px;"></div> <h2 class="logo-text">MemoryVault</h2>
+        <div class="account-section">
+            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="nav-avatar" onclick="document.getElementById('drop').toggleAttribute('hidden')">
+            <div id="drop" class="profile-dropdown" hidden>
+                <p id="accountDisplay" style="font-weight:900; margin-bottom:10px; font-size: 0.8rem; color: #64748b;"></p>
+                <hr>
+                <button class="dropdown-btn" onclick="exportVault()">📥 Backup Vault</button>
+                <button class="dropdown-btn" onclick="document.getElementById('importFile').click()">📤 Restore Vault</button>
+                <input type="file" id="importFile" hidden onchange="importVault(event)">
+                <hr>
+                <button onclick="logout()" class="dropdown-btn danger">Logout</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="content-wrapper">
+        <div class="welcome-section">
+            <h1 id="welcomeMsg">Welcome</h1>
+            <div class="storage-container">
+                <div id="storageText">Analyzing...</div>
+                <div class="progress-bg"><div id="storageBar"></div></div>
+            </div>
+        </div>
+
+        <div class="upload-card">
+            <div class="auth-group">
+                <label>CATEGORY</label>
+                <select id="categorySelect" class="auth-input">
+                    <option value="Personal">Personal</option>
+                    <option value="Work">Work</option>
+                    <option value="Family">Family</option>
+                </select>
+            </div>
+            
+            <input type="text" id="title" placeholder="Memory Title" class="auth-input" style="margin-bottom:15px;">
+            <textarea id="desc" placeholder="What happened today?..." class="auth-input" style="height:100px; margin-bottom:20px; resize: none;"></textarea>
+            
+            <div class="file-buttons">
+                <input type="file" id="imageInput" multiple accept="image/*" hidden>
+                <button onclick="document.getElementById('imageInput').click()" class="media-add-btn">📷 Photos</button>
+                <input type="file" id="videoInput" multiple accept="video/*" hidden>
+                <button onclick="document.getElementById('videoInput').click()" class="media-add-btn">🎥 Videos</button>
+                <input type="file" id="audioInput" multiple accept="audio/*" hidden>
+                <button onclick="document.getElementById('audioInput').click()" class="media-add-btn">🎵 Audio</button>
+            </div>
+            <button onclick="saveEntry()" class="btn-primary">Save to Vault</button>
+        </div>
+
+        <div class="controls-section">
+            <div class="filter-group">
+                <button class="filter-btn active" onclick="setFilter('All', this)">All</button>
+                <button class="filter-btn" onclick="setFilter('Personal', this)">Personal</button>
+                <button class="filter-btn" onclick="setFilter('Work', this)">Work</button>
+                <button class="filter-btn" onclick="setFilter('Family', this)">Family</button>
+            </div>
+            <input type="text" id="searchInput" placeholder="Search your memories..." class="search-input" oninput="handleSearch()">
+        </div>
+
+        <div id="gallery" class="gallery"></div>
+    </div>
+    
+    <div id="mediaModal" onclick="if(event.target == this) closeModal()">
+        <div id="modalContent">
+            <button class="close-modal-x" onclick="closeModal()">×</button>
+            <div id="modalInner"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

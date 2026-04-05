@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vault Pro | Join</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="auth-screen">
+    <div class="auth-card">
+        <div class="brand-icon">✨</div>
+        <h2 style="font-weight:900; margin-bottom: 30px;">Create Vault</h2>
+        <form onsubmit="handleSignup(event)">
+            <div class="auth-group">
+                <label>FULL NAME</label>
+                <input type="text" id="un" class="auth-input" placeholder="Your Name" required>
+            </div>
+            <div class="auth-group">
+                <label>EMAIL ADDRESS</label>
+                <input type="email" id="em" class="auth-input" placeholder="name@example.com" required>
+            </div>
+            <div class="auth-group">
+                <label>PASSWORD</label>
+                <div class="pass-wrapper">
+                    <input type="password" id="pw" class="auth-input" placeholder="••••••••" required>
+                    <button type="button" class="toggle-btn" onclick="togglePass('pw', this)">👁️</button>
+                </div>
+            </div>
+            <button type="submit" class="btn-primary" style="margin-top: 10px;">Open My Vault</button>
+        </form>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        function handleSignup(e) {
+            e.preventDefault();
+            const name = document.getElementById('un').value;
+            const email = document.getElementById('em').value;
+            const pass = document.getElementById('pw').value;
+            localStorage.setItem('profile_' + email, JSON.stringify({name, email, pass}));
+            localStorage.setItem('currentUser', JSON.stringify({name, email}));
+            location.href = 'dashboard.html';
+        }
+    </script>
+</body>
+</html>
